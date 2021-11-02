@@ -1,6 +1,6 @@
 # Networking between Unity and TouchDesigner
 
-Example of networking between unity-server-td using SocketIO and OSC protocol.  
+Example of networking between unity-server-td using **SocketIO** and **OSC** protocol.  
 Unity is for remote controller, TouchDesigner is for player.  
 SocketIO and Nodejs are not necessery in this case, but used it for studying.
 
