@@ -13,10 +13,13 @@ npm install
 node server
 ```
 
-## Basics
+## Protocols
 TD  
 - OSC In : listener. waiting for the server send message.  
 - OSC Out : emitter. send message to server.
+
+Unity
+- SocketIO : sending and receiving messages.
 
 ## Server
 Detail explanation of server.js code.
@@ -29,7 +32,7 @@ const io = require('socket.io')(http)
 const osc = require('node-osc')
 const cron = require('node-cron')
   
-# Socket port is set by window default. As we don't have setting panel here, keep it 8000. Can check the port with unity at your computer when it's running.  
+# Socket port is set by system default. As we don't have setting panel here, keep it 8000. Can check the port with unity at your computer when it's running.  
 const SOCKETIO_PORT = 8888
 const OSC_CLIENT_PORT = 8000
 const OSC_SERVER_PORT = 8001
@@ -53,13 +56,13 @@ io.on('connection', function(socket){
   ...
 })
 
-# SocketIO listening data from unity, when it arrives send it to TD.
+# SocketIO listening on data from unity, when it arrives send it to TD.
 socket.on('player:send-player-event', function(data){
     console.log(data.cmd)
     OSC_CLIENT.send('/player/osc_listener', data.cmd, function () {})
   })
   
-#  SocketIO listening message from TD. when it arrives send it to unity.
+#  SocketIO listening on message from TD. when it arrives send it to unity.
 OSC_SERVER.on('message', function (msg) {
     console.log('new message from TD:')
     console.log(msg)
@@ -68,6 +71,9 @@ OSC_SERVER.on('message', function (msg) {
 ``` 
 server console example  
 ![image](https://user-images.githubusercontent.com/64575677/139779206-146a2ceb-a4cc-4b48-a4b8-a551af3e64ef.png)
+
+## Notice
+Check all the names of nodes and data string to be matched with server.
 
 
 
